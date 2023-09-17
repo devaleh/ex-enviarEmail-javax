@@ -27,17 +27,24 @@ public class MainApp {
         });
         // Lista de destinatários
         List<String> recipients = new ArrayList<>();
-        recipients.add("lineage.org@gmail.com");
         recipients.add("alexandre.myemail@gmail.com");
+        recipients.add("lineage.org@gmail.com");
+        recipients.add("alexandredj.aleds@gmail.com");
+
+        Address[] addresses = new Address[recipients.size()];
+
         // Criando mensagens
         try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(userName, "BOT"));
+
             // mensagens para todos destinatários
-            for (String r : recipients) {
-                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(r));
+            for (int x = 0 ; x < addresses.length ; x++) {
+                addresses[x] = new InternetAddress(recipients.get(x));
                 count++;
             }
+
+            message.setRecipients(Message.RecipientType.TO, addresses);
             message.setSubject("Assunto do e-mail"); // Titulo
             message.setText("Conteúdo do e-mail"); // Corpo
             // Enviando ...
